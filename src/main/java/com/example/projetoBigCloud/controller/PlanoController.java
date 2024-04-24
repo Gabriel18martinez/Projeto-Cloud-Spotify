@@ -43,24 +43,8 @@ public class PlanoController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deletePlano(@PathVariable UUID id){
-        Optional<Plano> optPlano = this.repository.findById(id);
-
-        //Caso não ache o usuário, retornar um 404
-        if (optPlano.isEmpty() == true) {
-            return  new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        Plano plano = optPlano.get();
-
-        repository.delete(plano);
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
     @PutMapping("{id}")
-    public ResponseEntity<Plano> updatePlani(@PathVariable UUID id, @RequestBody Plano planoNovo) {
+    public ResponseEntity<Plano> updatePlano(@PathVariable UUID id, @RequestBody Plano planoNovo) {
         Optional<Plano> optPlano = this.repository.findById(id);
 
         //Caso não ache o usuário, retornar um 404

@@ -11,5 +11,6 @@ public class PlanoRequest {
     private UUID id;
     private String nome;
     private Double preco;
+    private Boolean ativo;
     private List<AssinaturaRequest> assinaturas;
 }

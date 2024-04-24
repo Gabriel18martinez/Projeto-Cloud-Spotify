@@ -21,7 +21,18 @@ public class Plano {
     @Column
     private Double preco;
 
+    @Column
+    private Boolean ativo;
+
     @OneToMany
     @JoinColumn(name = "plano_id", referencedColumnName = "id")
     private List<Assinatura> assinaturas;
+
+    public Plano() {
+    }
+
+    public Plano(String nome, Double preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
 }

@@ -45,14 +45,27 @@ public class UsuarioController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        // Verificar se o plano já existe e buscar referência persistida
+        Plano planoPersistido = planoRepository.findByNome("planoFree").orElseGet(() -> {
+            Plano novoPlano = new Plano("planoFree", 0.0);
+            planoRepository.save(novoPlano);
+            return novoPlano;
+        });
+
         Playlist playListCurtidas = new Playlist();
         playListCurtidas.setId(UUID.randomUUID());
         playListCurtidas.setNome(this.PLAYLIST_CURTIDAS);
         playListCurtidas.setUsuario(usuario);
         playListCurtidas.setIdUsuario(usuario.getId());
 
+        Assinatura assinatura = new Assinatura();
+        assinatura.setUsuario(usuario);
+        assinatura.setAtivo(true);
+        assinatura.setPlano(planoPersistido);
+
         this.repository.save(usuario);
         this.playlistRepository.save(playListCurtidas);
+        this.assinaturaRepository.save(assinatura);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
